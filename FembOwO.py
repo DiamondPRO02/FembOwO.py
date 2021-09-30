@@ -1,6 +1,8 @@
 import discord
+import logging
 
 client = discord.Client()
+logging.basicConfig(level=logging.INFO)
 
 @client.event
 async def on_ready():
@@ -14,4 +16,4 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-client.run('your token here')
+client.run('NO')
