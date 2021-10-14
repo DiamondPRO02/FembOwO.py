@@ -1,6 +1,7 @@
 import discord
 import logging
 import json
+import datetime
 from discord.ext import commands
 from discord.utils import get
 
@@ -11,21 +12,23 @@ with open('config.json', 'r') as json_config:
     config = json.load(json_config)
 json_config.close
 
-#logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 #file logging
+"""
 logger = logging.getLogger('discord')
 #CRITICAL, ERROR, WARNING, INFO and DEBUG
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
+"""
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+    prefix = config.get("prefix")
+    if message.author.id == client.user.id:
         return
-
-    if message.content.startswith('$hello'):
+    if message.content.startswith(prefix + 'hello'):
         await message.channel.send('Hello!', mention_author=True)
         print('hello test success!')
 
@@ -41,7 +44,8 @@ async def on_member_join(member):
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user} (ID: {0.user.id}) '.format(client))
+    start_time = datetime.datetime.now()
+    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(client), start_time)
     print('----------------------------------------------------------------------')
 
 #token
