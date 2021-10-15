@@ -42,6 +42,16 @@ async def on_member_join(member):
         to_send = 'Welcome {member.mention} to {guild.name}!'
         await guild.system_channel.send(to_send)
         print('welcome member #2 test success!')
+#Fuck me
+class MyClient(discord.Client):
+    async def on_member_join(self, member):
+        guild = member.guild
+        print('welcome member #11 test success!')
+        if guild.system_channel is not None:
+            to_send = 'Welcome {0.mention} to {1.name}!'.format(member, guild)
+            await guild.system_channel.send(to_send)
+            print('welcome member #22 test success!')
+#reeeeeeeeeeeeeeeeeeeeee
 
 @client.event
 async def on_ready():
