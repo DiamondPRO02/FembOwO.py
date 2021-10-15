@@ -28,6 +28,7 @@ async def on_message(message):
     prefix = config.get("prefix")
     if message.author.id == client.user.id:
         return
+#write if prefix !== message content startwith => return
     if message.content.startswith(prefix + 'hello'):
         await message.channel.send('Hello!', mention_author=True)
         print('hello test success!')
