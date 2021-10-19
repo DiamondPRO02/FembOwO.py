@@ -6,22 +6,22 @@ from discord.ext import commands
 from discord.utils import get
 
 client = discord.Client()
-
 #json config load
 with open('config.json', 'r') as json_config:
     config = json.load(json_config)
 json_config.close
-
+#prefix and command
+prefix = config.get("prefix")
+bot = commands.Bot(command_prefix='!')
+#CRITICAL, ERROR, WARNING, INFO and DEBUG
 logging.basicConfig(level=logging.INFO)
 #file logging
 """
 logger = logging.getLogger('discord')
-#CRITICAL, ERROR, WARNING, INFO and DEBUG
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-"""
 
 @client.event
 async def on_message(message):
@@ -35,6 +35,25 @@ async def on_message(message):
     if message.content.startswith(prefix + 'hello'):
         await message.channel.send('Hello!', mention_author=True)
         print('hello test success!')
+        return
+    if message.content.startswith(prefix + 'time'):
+        start_time = datetime.datetime.now()
+        await message.channel.send('The time is:', start_time)
+        print('timetelling test success!')
+        return
+"""
+@bot.command()
+async def hello(ctx):
+    await ctx.send('Hello!', mention_author=True)
+    print('hello test success!')
+    pass
+@commands.command()
+async def time(ctx):
+    date_time = datetime.datetime.now()
+    await ctx.send('The time is:', date_time)
+    print('timetelling test success!')
+    pass
+bot.add_command(time)
 #NOT WORKING
 @client.event
 async def on_member_join(member):
@@ -58,7 +77,7 @@ class MyClient(discord.Client):
 @client.event
 async def on_ready():
     start_time = datetime.datetime.now()
-    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(client), start_time)
+    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(client), start_time, '\nPrefix:', prefix)
     print('----------------------------------------------------------------------')
 
 #token
