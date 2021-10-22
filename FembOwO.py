@@ -29,12 +29,9 @@ async def on_message(message):
         return
 """
 @bot.command()
-<<<<<<< HEAD
 async def ping(ctx):
     await ctx.send(f'Ping: {round(bot.latency * 1000)}ms')
 @bot.command()
-=======
->>>>>>> edafe054e2d0a639cf5402c0ed25c23371caef6c
 async def helping(ctx):
     embed = discord.Embed(
         title = 'Help page',
@@ -49,20 +46,11 @@ async def helping(ctx):
 async def hello(ctx):
     await ctx.send('Hello!', mention_author=True)
     print('hello test success!')
-<<<<<<< HEAD
 @bot.command()
-=======
-@commands.command()
->>>>>>> edafe054e2d0a639cf5402c0ed25c23371caef6c
 async def time(ctx):
     date_time = datetime.datetime.now()
     await ctx.send('The time is:', date_time)
     print('timetelling test success!')
-<<<<<<< HEAD
-=======
-bot.add_command(time)
-
->>>>>>> edafe054e2d0a639cf5402c0ed25c23371caef6c
 #NOT WORKING
 @bot.event
 async def on_member_join(member):
@@ -79,11 +67,7 @@ async def on_ready():
     start_time = datetime.datetime.now()
     print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', prefix)
     print('----------------------------------------------------------------------')
-<<<<<<< HEAD
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="ur mum"))
-=======
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="Frick me"))
->>>>>>> edafe054e2d0a639cf5402c0ed25c23371caef6c
 
 #token
 token = config.get("token")
