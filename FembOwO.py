@@ -9,30 +9,21 @@ from discord.utils import get
 with open('config.json', 'r') as json_config:
     config = json.load(json_config)
 json_config.close
-#prefix and command
-prefix = config.get("prefix")
-bot = commands.Bot(command_prefix='!')
-#CRITICAL, ERROR, WARNING, INFO and DEBUG
+#prefix and command.bot=bot
+bot = commands.Bot(command_prefix=config.get("prefix"))
+
+#file logging   CRITICAL, ERROR, WARNING, INFO and DEBUG
 logging.basicConfig(level=logging.INFO)
-#file logging
 """
 logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-
-@bot.event
-async def on_message(message):
-    prefix = config.get("prefix")
-    if message.author.id == bot.user.id:
-        return
 """
-date_time = datetime.datetime.now()
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Ping: {round(bot.latency * 1000)}ms')
-    pass
 @bot.command()
 async def helping(ctx):
     embed = discord.Embed(
@@ -41,22 +32,18 @@ async def helping(ctx):
     )
     embed.set_image(url='https://discordemoji.com/assets/emoji/2788_stupid.png')
     embed.set_footer(text='Wut')
-
     await ctx.send(embed = embed)
-    pass
-@bot.command()
-async def hello(ctx):
-    await ctx.send('Hello!', mention_author=True)
-    print('hello test success!')
-    pass
+#not working
 @bot.command()
 async def time(ctx):
-    await ctx.send('The time is:', date_time)
+    date = datetime.datetime.now()
+    to_send = 'The time is: {date}'
+    await ctx.send(to_send)
     print('timetelling test success!')
-    pass
-#NOT WORKING
+#not working
 @bot.event
 async def on_member_join(member):
+    print('welcome member #0 test success!')
     guild = member.guild
     print('welcome member #1 test success!')
     if guild.system_channel is not None:
@@ -68,10 +55,9 @@ async def on_member_join(member):
 @bot.event
 async def on_ready():
     start_time = datetime.datetime.now()
-    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', prefix)
+    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', config.get("prefix"))
     print('----------------------------------------------------------------------')
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="ur mum"))
-
 #token
 token = config.get("token")
 bot.run(token)
