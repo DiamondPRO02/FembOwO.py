@@ -28,9 +28,11 @@ async def on_message(message):
     if message.author.id == bot.user.id:
         return
 """
+date_time = datetime.datetime.now()
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Ping: {round(bot.latency * 1000)}ms')
+    pass
 @bot.command()
 async def helping(ctx):
     embed = discord.Embed(
@@ -38,7 +40,7 @@ async def helping(ctx):
         description = 'This is the help page (WIP)'
     )
     embed.set_image(url='https://discordemoji.com/assets/emoji/2788_stupid.png')
-    embed.set_footer(text='Laget av Alexander Gnauck 3ELDEA')
+    embed.set_footer(text='Wut')
 
     await ctx.send(embed = embed)
     pass
@@ -46,11 +48,12 @@ async def helping(ctx):
 async def hello(ctx):
     await ctx.send('Hello!', mention_author=True)
     print('hello test success!')
+    pass
 @bot.command()
 async def time(ctx):
-    date_time = datetime.datetime.now()
     await ctx.send('The time is:', date_time)
     print('timetelling test success!')
+    pass
 #NOT WORKING
 @bot.event
 async def on_member_join(member):
