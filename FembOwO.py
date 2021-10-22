@@ -43,17 +43,27 @@ async def on_message(message):
         return
 """
 @bot.command()
+async def helping(ctx):
+    embed = discord.Embed(
+        title = 'Help page',
+        description = 'This is the help page (WIP)'
+    )
+    embed.set_image(url='https://discordemoji.com/assets/emoji/2788_stupid.png')
+    embed.set_footer(text='Laget av Alexander Gnauck 3ELDEA')
+
+    await ctx.send(embed = embed)
+    pass
+@bot.command()
 async def hello(ctx):
     await ctx.send('Hello!', mention_author=True)
     print('hello test success!')
-    pass
 @commands.command()
 async def time(ctx):
     date_time = datetime.datetime.now()
     await ctx.send('The time is:', date_time)
     print('timetelling test success!')
-    pass
 bot.add_command(time)
+
 #NOT WORKING
 @client.event
 async def on_member_join(member):
@@ -79,6 +89,7 @@ async def on_ready():
     start_time = datetime.datetime.now()
     print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(client), start_time, '\nPrefix:', prefix)
     print('----------------------------------------------------------------------')
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="Frick me"))
 
 #token
 token = config.get("token")
