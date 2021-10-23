@@ -52,17 +52,6 @@ async def on_member_join(member):
         await guild.system_channel.send(to_send)
         print('welcome member #2 test success!')
 """
-#how the fuck is this working?
-class bot(discord.Client):
-    async def on_member_join(self, member):
-        guild = member.guild
-        if guild.system_channel is not None:
-            to_send = f'Welcome {member.mention} to {guild.name}!'
-            await guild.system_channel.send(to_send)
-intents = discord.Intents.default()
-intents.members = True
-bot = bot(intents=intents)
-
 #activated when bot ready
 @bot.event
 async def on_ready():
@@ -70,6 +59,18 @@ async def on_ready():
     print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', config.get("prefix"))
     print('----------------------------------------------------------------------')
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="ur mum"))
+
+#how the fuck is this working?
+class MyClient(discord.Client):
+    async def on_member_join(self, member):
+        guild = member.guild
+        if guild.system_channel is not None:
+            to_send = f'Welcome {member.mention} to {guild.name}!'
+            await guild.system_channel.send(to_send)
+intents = discord.Intents.default()
+intents.members = True
+client = MyClient(intents=intents)
+
 #token
 token = config.get("token")
 bot.run(token)
