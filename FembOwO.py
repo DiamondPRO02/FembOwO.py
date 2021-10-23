@@ -33,13 +33,19 @@ async def helping(ctx):
     embed.set_image(url='https://discordemoji.com/assets/emoji/2788_stupid.png')
     embed.set_footer(text='Wut')
     await ctx.send(embed = embed)
-#not working
+#half working - time is not sent
 @bot.command()
 async def time(ctx):
     date = datetime.datetime.now()
     to_send = 'The time is:'
     await ctx.send(to_send)
     print('timetelling test success!')
+#not working
+@bot.event
+async def on_member_join(member):
+    channel = bot.get_channel(898290588284223498)
+    embed=discord.Embed(title="Welcome!",description=f"{member.mention} just Joined")
+    await channel.send(embed=embed)
 #not working
 """
 @bot.event
@@ -52,15 +58,8 @@ async def on_member_join(member):
         await guild.system_channel.send(to_send)
         print('welcome member #2 test success!')
 """
-#activated when bot ready
-@bot.event
-async def on_ready():
-    start_time = datetime.datetime.now()
-    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', config.get("prefix"))
-    print('----------------------------------------------------------------------')
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="ur mum"))
-
 #how the fuck is this working?
+#Nope, not working
 class MyClient(discord.Client):
     async def on_member_join(self, member):
         guild = member.guild
@@ -71,6 +70,13 @@ intents = discord.Intents.default()
 intents.members = True
 client = MyClient(intents=intents)
 
+#activated when ready
+@bot.event
+async def on_ready():
+    start_time = datetime.datetime.now()
+    print('We have logged in as {0.user} (ID: {0.user.id}) \nTime:'.format(bot), start_time, '\nPrefix:', config.get("prefix"))
+    print('----------------------------------------------------------------------')
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="ur mum"))
 #token
 token = config.get("token")
 bot.run(token)
