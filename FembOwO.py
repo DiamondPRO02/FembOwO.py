@@ -37,10 +37,11 @@ async def helping(ctx):
 @bot.command()
 async def time(ctx):
     date = datetime.datetime.now()
-    to_send = 'The time is: {date}'
+    to_send = 'The time is:'
     await ctx.send(to_send)
     print('timetelling test success!')
 #not working
+"""
 @bot.event
 async def on_member_join(member):
     print('welcome member #0 test success!')
@@ -50,6 +51,17 @@ async def on_member_join(member):
         to_send = 'Welcome {member.mention} to {guild.name}!'
         await guild.system_channel.send(to_send)
         print('welcome member #2 test success!')
+"""
+#how the fuck is this working?
+class bot(discord.Client):
+    async def on_member_join(self, member):
+        guild = member.guild
+        if guild.system_channel is not None:
+            to_send = f'Welcome {member.mention} to {guild.name}!'
+            await guild.system_channel.send(to_send)
+intents = discord.Intents.default()
+intents.members = True
+bot = bot(intents=intents)
 
 #activated when bot ready
 @bot.event
